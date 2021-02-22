@@ -11,7 +11,7 @@ const Label = styled.label`
   >input{
     display: block;
     width: 100%;
-    height: 72px;
+    height: 44px;
     background: none;
     border: none;
   }
@@ -20,7 +20,7 @@ type Props = {
   label: string,
 } & React.InputHTMLAttributes<HTMLInputElement>
 const Input: React.FC<Props> = (props) => {
-  const {label,...rest} = props
+  const {label, ...rest} = props;
   return (
     <Label>
       <span>{props.label}</span>

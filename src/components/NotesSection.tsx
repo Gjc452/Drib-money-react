@@ -4,7 +4,7 @@ import Input from './Input';
 
 const Wrapper = styled.section`
   background: #f5f5f5;
-  padding: 0 16px;
+  padding: 8px 16px;
   font-size: 14px;
 `;
 type Props = {
@@ -18,7 +18,7 @@ const NotesSection: React.FC<Props> = (props) => {
   };
   return (
     <Wrapper>
-      <Input type='text' label='备注' value={note} onChange={onChange}/>
+      <Input type='text' label='备注' value={note} onChange={onChange} placeholder='请填写备注'/>
     </Wrapper>
   );
 };

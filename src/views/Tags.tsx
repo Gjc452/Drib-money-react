@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import Icon from '../components/Icon';
 import {Link} from 'react-router-dom';
 import Button from '../components/Button';
+import Space from '../components/Space';
+
 
 const TabList = styled.ol`
   font-size: 16px;
@@ -27,9 +29,7 @@ const Center = styled.div`
   align-items: center;
   flex-direction: column;
 `;
-const Space = styled.div`
-  height: 16px;
-`;
+
 
 function Tags() {
   const {tags} = useTags();
