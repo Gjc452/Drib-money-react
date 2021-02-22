@@ -4,6 +4,7 @@ import Statistics from 'views/Statistics';
 import Money from './views/Money';
 import Tags from './views/Tags';
 import NoMatch from './views/NoMatch';
+import Tag from './views/Tag';
 
 
 function App() {
@@ -13,8 +14,11 @@ function App() {
         <Route path="/money">
           <Money/>
         </Route>
-        <Route path="/tags">
+        <Route path="/tags" exact={true}>
           <Tags/>
+        </Route>
+        <Route path='/tags/:tag' exact={true}>
+          <Tag/>
         </Route>
         <Route path="/statistics">
           <Statistics/>
