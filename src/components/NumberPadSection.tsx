@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, {useState} from 'react';
 
 const Wrapper = styled.section`
   display: flex;
@@ -53,12 +53,40 @@ const Wrapper = styled.section`
 `;
 
 const NumberPadSection = () => {
+  const [output, setOutput] = useState('0');
+  const onClickButton = (e: React.MouseEvent) => {
+    const text = (e.target as HTMLButtonElement).textContent;
+    if (text === null || output.length >= 16) {return;}
+    if ('0123456789'.indexOf(text) >= 0) {
+      if (output === '0') {
+        setOutput(text);
+      } else {
+        setOutput(output + text);
+      }
+    } else if (text === '.') {
+      if (output.indexOf(text) >= 0) {
+        return;
+      } else {
+        setOutput(output + text);
+      }
+    } else if (text === '删除') {
+      if (output.length === 1) {
+        setOutput('0');
+      } else {
+        setOutput(output.slice(0, -1));
+      }
+    } else if (text === '清空') {
+      setOutput('0');
+    } else if (text === 'OK') {
+      console.log('OK');
+    }
+  };
   return (
     <Wrapper>
       <div className='output'>
-        100
+        {output}
       </div>
-      <div className='pad clearfix'>
+      <div onClick={onClickButton} className='pad clearfix'>
         <button>1</button>
         <button>2</button>
         <button>3</button>
