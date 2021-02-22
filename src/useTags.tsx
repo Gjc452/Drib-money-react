@@ -24,7 +24,7 @@ const useTags = () => {
   };
   const deleteTag = (id: number) => {
     setTags(tags.filter(tag => tag.id !== id));
-
+    window.history.back();
   };
   return {tags: tags, setTags, findTag, findTagIndex, updateTag, deleteTag};
 };
