@@ -1,4 +1,4 @@
-let id = JSON.parse(window.localStorage.getItem('_id') || '5');
+let id = JSON.parse(window.localStorage.getItem('_id') || '0');
 const createId = () => {
   id += 1;
   window.localStorage.setItem('_id', JSON.stringify(id));
