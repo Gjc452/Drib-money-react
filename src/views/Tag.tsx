@@ -27,7 +27,7 @@ const InputWrapper = styled.div`
   margin-top: 8px;
 `;
 const Tag: React.FC = (props) => {
-  const {findTag, updateTag} = useTags();
+  const {findTag, updateTag, deleteTag} = useTags();
   let {id: idString} = useParams<Params>();
   const tag = findTag(parseInt(idString));
   return (
@@ -45,9 +45,11 @@ const Tag: React.FC = (props) => {
         <Space/>
         <Space/>
         <Space/>
-        <Button>删除标签</Button>
+        <Button onClick={() => deleteTag(tag.id)}>删除标签</Button>
       </Center>
     </Layout>
   );
 };
+
+
 export default Tag;
