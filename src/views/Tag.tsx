@@ -26,7 +26,7 @@ const InputWrapper = styled.div`
   padding: 0 16px;
   margin-top: 8px;
 `;
-const Tag: React.FC = (props) => {
+const Tag: React.FC = () => {
   const {findTag, updateTag, deleteTag} = useTags();
   let {id: idString} = useParams<Params>();
   const tag = findTag(parseInt(idString));
@@ -34,13 +34,8 @@ const Tag: React.FC = (props) => {
   const onClickBack = () => {
     history.goBack();
   };
-  return (
-    <Layout>
-      <TopBar>
-        <Icon name='left' onClick={onClickBack}/>
-        <span>编辑标签</span>
-        <Icon/>
-      </TopBar>
+  const tagContent = (tag: { id: number; name: string }) => (
+    <div>
       <InputWrapper>
         <Input label='标签名' value={tag.name} type='text' placeholder='标签名'
                onChange={(e) => updateTag(tag.id, {name: e.target.value})}/>
@@ -51,6 +46,16 @@ const Tag: React.FC = (props) => {
         <Space/>
         <Button onClick={() => deleteTag(tag.id)}>删除标签</Button>
       </Center>
+    </div>
+  );
+  return (
+    <Layout>
+      <TopBar>
+        <Icon name='left' onClick={onClickBack}/>
+        <span>编辑标签</span>
+        <Icon/>
+      </TopBar>
+      {tag ? tagContent(tag) : <Center>tag 不存在</Center>}
     </Layout>
   );
 };
