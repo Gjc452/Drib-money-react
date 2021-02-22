@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, {useState} from 'react';
+import React from 'react';
 
 const Wrapper = styled.section`
   display: flex;
@@ -52,8 +52,24 @@ const Wrapper = styled.section`
   }
 `;
 
-const NumberPadSection = () => {
-  const [output, setOutput] = useState('0');
+type Props = {
+  value: string;
+  onChange: (amount: string) => void;
+  onOK: () => void
+}
+const NumberPadSection: React.FC<Props> = (props) => {
+  const output = props.value;
+  const setOutput = (output: string) => {
+    let value;
+    if (output.length >= 16) {
+      value = output.slice(0, 16);
+    } else if (output.length === 0) {
+      value = '0';
+    } else {
+      value = output;
+    }
+    props.onChange(value);
+  };
   const onClickButton = (e: React.MouseEvent) => {
     const text = (e.target as HTMLButtonElement).textContent;
     if (text === null || output.length >= 16) {return;}
@@ -78,7 +94,7 @@ const NumberPadSection = () => {
     } else if (text === '清空') {
       setOutput('0');
     } else if (text === 'OK') {
-      console.log('OK');
+      props.onOK();
     }
   };
   return (

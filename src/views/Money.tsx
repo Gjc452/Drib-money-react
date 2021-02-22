@@ -1,10 +1,10 @@
 import Layout from '../components/Layout';
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import TagsSection from '../components/TagsSection';
-import NotesSection from '../components/NotesSection';
 import NumberPadSection from '../components/NumberPadSection';
 import TypesSection from '../components/TypesSection';
+import NotesSection from '../components/NotesSection';
 
 
 const MyLayout = styled(Layout)`
@@ -12,13 +12,41 @@ const MyLayout = styled(Layout)`
   flex-direction: column;
 `;
 
+type Type = '-' | '+'
+
 function Money() {
+  const [selected, setSelected] = useState({
+    tags: [] as string[],
+    note: '',
+    type: '-' as Type,
+    amount: '0',
+  });
   return (
     <MyLayout>
-      <TagsSection/>
-      <NotesSection/>
-      <TypesSection/>
-      <NumberPadSection/>
+      <TagsSection selected={selected.tags}
+                   onChange={(tags) => setSelected({
+                     ...selected,
+                     tags: tags
+                   })}/>
+      <NotesSection value={selected.note}
+                    onChange={(note) => setSelected({
+                      ...selected,
+                      note: note
+                    })}/>
+      <TypesSection value={selected.type}
+                    onChange={(type) => {
+                      setSelected({
+                        ...selected,
+                        type: type
+                      });
+                    }}/>
+      <NumberPadSection value={selected.amount} onOK={() => {}}
+                        onChange={(amount) => {
+                          setSelected({
+                            ...selected,
+                            amount: amount
+                          });
+                        }}/>
     </MyLayout>
   );
 }
