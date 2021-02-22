@@ -42,7 +42,7 @@ const Nav = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/tags" activeClassName='selected'>
+          <NavLink to="/tags" exact activeClassName='selected'>
             <Icon name='label'/>
             <span>标签</span>
           </NavLink>
