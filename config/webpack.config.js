@@ -373,7 +373,11 @@ module.exports = function (webpackEnv) {
                 {loader: 'svg-sprite-loader', options: {}},
                 {
                   loader: 'svgo-loader',
-                  options: {}
+                  options: {
+                    plugins: [
+                      {removeAttrs: {attrs: 'fill'}}
+                    ]
+                  }
                 }
               ]
             },
