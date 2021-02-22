@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
 import useTags from '../useTags';
+import createId from '../lib/createId';
 
 const Wrapper = styled.section`
   background: #FFF;
@@ -40,7 +41,8 @@ const TagsSection: React.FC<Props> = (props) => {
       if (tagList.indexOf(tagName) >= 0) {
         window.alert('标签已存在');
       } else {
-        setTags([...tags, {id: Math.random(), name: tagName}]);
+        setTags([...tags, {id: createId(), name: tagName}]);
+        console.log(tags);
       }
     }
   };
