@@ -20,6 +20,7 @@ const defaultFormData = {
   type: '-' as Type,
   amount: '0',
 };
+
 function Money() {
   const [selected, setSelected] = useState(defaultFormData);
   const {records, addRecord} = useRecords();
@@ -30,13 +31,19 @@ function Money() {
     });
   };
   const submit = () => {
+    if (selected.amount === '0') {
+      return alert('请输入金额');
+    }
+    if (selected.tagIds.length === 0) {
+      return alert('请选择至少一个标签');
+    }
     addRecord(selected);
     alert('保存成功');
     setSelected(defaultFormData);
+
   };
   return (
     <MyLayout>
-      {JSON.stringify(selected)}
       <TagsSection value={selected.tagIds}
                    onChange={(tagIds) => onChange({tagIds})}/>
       <NotesSection value={selected.note}
