@@ -5,7 +5,7 @@ type RecordItem = {
   tagIds: number[]
   note: string
   type: '+' | '-'
-  amount: string
+  amount: number
   createAt: string //ISO 8601
 }
 type newRecordItem = Omit<RecordItem, 'createAt'>

@@ -48,7 +48,11 @@ const useTags = () => {
       setTags(tags.filter(tag => tag.id !== id));
       window.history.back();
     };
-    return {tags: tags, setTags, findTag, findTagIndex, updateTag, deleteTag, addTag};
+    const getName = (id: number) => {
+      const tag = tags.filter(t => t.id === id)[0];
+      return tag ? tag.name : '';
+    };
+    return {tags: tags, setTags, findTag, findTagIndex, updateTag, deleteTag, addTag, getName};
   }
 ;
 export default useTags;

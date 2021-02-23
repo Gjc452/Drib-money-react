@@ -12,13 +12,15 @@ const MyLayout = styled(Layout)`
   display: flex;
   flex-direction: column;
 `;
-
+const TypeWrapper = styled.div`
+  background: #c4c4c4;
+`;
 type Type = '-' | '+'
 const defaultFormData = {
   tagIds: [] as number[],
   note: '',
   type: '-' as Type,
-  amount: '0',
+  amount: 0,
 };
 
 function Money() {
@@ -31,7 +33,7 @@ function Money() {
     });
   };
   const submit = () => {
-    if (selected.amount === '0') {
+    if (selected.amount === 0) {
       return alert('请输入金额');
     }
     if (selected.tagIds.length === 0) {
@@ -48,8 +50,10 @@ function Money() {
                    onChange={(tagIds) => onChange({tagIds})}/>
       <NotesSection value={selected.note}
                     onChange={(note) => onChange({note})}/>
-      <TypesSection value={selected.type}
-                    onChange={(type) => onChange({type})}/>
+      <TypeWrapper>
+        <TypesSection value={selected.type}
+                      onChange={(type) => onChange({type})}/>
+      </TypeWrapper>
       <NumberPadSection value={selected.amount} onOK={submit}
                         onChange={(amount) => onChange({amount})}/>
     </MyLayout>
