@@ -2,7 +2,7 @@ import Layout from '../components/Layout';
 import React, {useState} from 'react';
 import TypesSection from '../components/TypesSection';
 import styled from 'styled-components';
-import useRecords from '../hooks/useRecords';
+import useRecords, {RecordItem} from '../hooks/useRecords';
 import useTags from '../hooks/useTags';
 import dayjs from 'dayjs';
 
@@ -22,26 +22,49 @@ const Item = styled.div`
     color: #999;
   }
 `;
+const Header = styled.h3`
+  font-size: 18px;
+  line-height: 20px;
+  padding: 10px 16px;
+`;
 
 function Tags() {
   const [type, setType] = useState<'-' | '+'>('-');
   const {records} = useRecords();
   const {getName} = useTags();
+  const hash: { [k: string]: RecordItem[] } = {};
+  const selectedRecords = records.filter(record => record.type === type);
+  selectedRecords.map(r => {
+    const key = dayjs(r.createAt).format('YY年MM月DD日');
+    if (!(key in hash)) {
+      hash[key] = [];
+    }
+    hash[key].push(r);
+  });
+  const array = Object.entries(hash).sort((a, b) => {
+    if (a[0] === b[0]) return 0;
+    if (a[0] > b[0]) return -1;
+    if (a[0] < b[0]) return 1;
+    return 0;
+  });
   return (
     <Layout>
       <TypeWrapper>
         <TypesSection value={type}
                       onChange={(value) => setType(value)}/>
       </TypeWrapper>
-      <div>
+      {array.map(([date, records]) => <div key={date}>
+        <Header>
+          {date}
+        </Header>
         {records.map(record => {
-          return <Item>
-            <div className='tags'>{record.tagIds.map(tagId => <span>{getName(tagId)}</span>)}</div>
-            {record.note && <div className='note'>{record.note}</div>}
+          return <Item key={record.createAt}>
+            <div className='tags'>{record.tagIds.map(tagId => <span key={tagId}>{getName(tagId)}</span>)}</div>
+            <div className='note'>{record.note}</div>
             <div>￥{record.amount}</div>
           </Item>;
         })}
-      </div>
+      </div>)}
     </Layout>
   );
 }
